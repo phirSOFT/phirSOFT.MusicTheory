@@ -133,6 +133,15 @@ namespace phirSOFT.MusicTheory {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to C;C♯/Db;D;E;F;F♯/Gb;G;G♯/Ab;A;A♯/Bb;B♮.
+        /// </summary>
+        internal static string Keymap {
+            get {
+                return ResourceManager.GetString("Keymap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Perfect unison.
         /// </summary>
         internal static string MmpInterval0 {

@@ -141,6 +141,9 @@
   <data name="FormatterUnrecognizedFormat" xml:space="preserve">
     <value>Unrecognized format string '{0}'.</value>
   </data>
+  <data name="Keymap" xml:space="preserve">
+    <value>C;C♯/Db;D;E;F;F♯/Gb;G;G♯/Ab;A;A♯/Bb;B♮</value>
+  </data>
   <data name="MmpInterval0" xml:space="preserve">
     <value>Perfect unison</value>
   </data>
