@@ -79,6 +79,23 @@ namespace phirSOFT.MusicTheory.Test
             return Comparer<Key>.Default.Compare(left, right) < 0 ? right : left;
         }
 
+        [Test]       
+        public void TestComparisonNull([Range(0, 11)]int pitch, [Range(0, 7)] int scale)
+        {
+            var key = Key.FromPitch((Key.Pitch) pitch, (Scale) scale);
+            var cmp = Comparer.Default;
+            Assert.Negative(cmp.Compare(null, key));
+            Assert.Positive(cmp.Compare(key, null));
+        }
+
+        [Test]
+        public void TestComparisonThrow([Values(typeof(object), typeof(int), typeof(Interval))] Type t ,[Range(0, 11)]int pitch, [Range(0, 7)] int scale)
+        {
+            var o = Activator.CreateInstance(t);
+            var key = Key.FromPitch((Key.Pitch) pitch, (Scale) scale);
+            Assert.Throws<ArgumentException>(() => Comparer.Default.Compare(o, key));
+        }
+
         public static IEnumerable ComparisonTestCases
         {
             get
