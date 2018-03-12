@@ -20,7 +20,7 @@ namespace phirSOFT.MusicTheory
             Semitones = semitones;
         }
 
-        public Interval FromSemitones(sbyte semitones)
+        public static Interval FromSemitones(sbyte semitones)
         {
             return new Interval(semitones);
         }
