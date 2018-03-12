@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="phirSOFT.ContextProperties" Version="0.1.2" />
     <PackageReference Include="phirSOFT.TopologicalComparison" Version="0.2.3" />
   </ItemGroup>
 

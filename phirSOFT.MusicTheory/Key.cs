@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using phirSOFT.TopologicalComparison;
 
@@ -107,11 +108,8 @@ namespace phirSOFT.MusicTheory
         /// </summary>
         public sbyte Signs => SignTable[_transposition];
 
-        public string BaseNote
-        {
-            get { return Keys[Mod(_transposition + _scale, 12)]; }
-        }
-
+        public string BaseNote => KeyTable.GetTableForCulture(CultureInfo.CurrentCulture)[_transposition];
+   
         public bool CanCompareTo(Key other)
         {
             return _scale == other._scale;
