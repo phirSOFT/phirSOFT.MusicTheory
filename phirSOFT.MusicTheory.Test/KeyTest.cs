@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace phirSOFT.MusicTheory.Test
@@ -70,6 +72,66 @@ namespace phirSOFT.MusicTheory.Test
             Assert.AreEqual(sharps, key.Signs.Sharps());
         }
 
-       
+        [Test]
+        [TestCaseSource(typeof(KeyTest), nameof(ComparisonTestCases))]
+        public Key TestComparison(Key left, Key right)
+        {
+            return Comparer<Key>.Default.Compare(left, right) < 0 ? right : left;
+        }
+
+        public static IEnumerable ComparisonTestCases
+        {
+            get
+            {
+                yield return new TestCaseData(Key.Pitch.C.Major(), Key.Pitch.D.Major()).Returns(Key.Pitch.D.Major());
+                yield return new TestCaseData(Key.Pitch.C.Major(), Key.Pitch.E.Major()).Returns(Key.Pitch.E.Major());
+                yield return new TestCaseData(Key.Pitch.C.Major(), Key.Pitch.F.Major()).Returns(Key.Pitch.F.Major());
+                yield return new TestCaseData(Key.Pitch.C.Major(), Key.Pitch.G.Major()).Returns(Key.Pitch.C.Major());
+                yield return new TestCaseData(Key.Pitch.C.Major(), Key.Pitch.A.Major()).Returns(Key.Pitch.C.Major());
+                yield return new TestCaseData(Key.Pitch.C.Major(), Key.Pitch.B.Major()).Returns(Key.Pitch.C.Major());
+               
+                yield return new TestCaseData(Key.Pitch.D.Major(), Key.Pitch.C.Major()).Returns(Key.Pitch.C.Major());
+                yield return new TestCaseData(Key.Pitch.D.Major(), Key.Pitch.E.Major()).Returns(Key.Pitch.E.Major());
+                yield return new TestCaseData(Key.Pitch.D.Major(), Key.Pitch.F.Major()).Returns(Key.Pitch.F.Major());
+                yield return new TestCaseData(Key.Pitch.D.Major(), Key.Pitch.G.Major()).Returns(Key.Pitch.D.Major());
+                yield return new TestCaseData(Key.Pitch.D.Major(), Key.Pitch.A.Major()).Returns(Key.Pitch.D.Major());
+                yield return new TestCaseData(Key.Pitch.D.Major(), Key.Pitch.B.Major()).Returns(Key.Pitch.D.Major());
+
+                yield return new TestCaseData(Key.Pitch.E.Major(), Key.Pitch.C.Major()).Returns(Key.Pitch.E.Major());
+                yield return new TestCaseData(Key.Pitch.E.Major(), Key.Pitch.D.Major()).Returns(Key.Pitch.E.Major());
+                yield return new TestCaseData(Key.Pitch.E.Major(), Key.Pitch.F.Major()).Returns(Key.Pitch.F.Major());
+                yield return new TestCaseData(Key.Pitch.E.Major(), Key.Pitch.G.Major()).Returns(Key.Pitch.G.Major());
+                yield return new TestCaseData(Key.Pitch.E.Major(), Key.Pitch.A.Major()).Returns(Key.Pitch.A.Major());
+                yield return new TestCaseData(Key.Pitch.E.Major(), Key.Pitch.B.Major()).Returns(Key.Pitch.E.Major());
+
+                yield return new TestCaseData(Key.Pitch.F.Major(), Key.Pitch.C.Major()).Returns(Key.Pitch.F.Major());
+                yield return new TestCaseData(Key.Pitch.F.Major(), Key.Pitch.D.Major()).Returns(Key.Pitch.F.Major());
+                yield return new TestCaseData(Key.Pitch.F.Major(), Key.Pitch.E.Major()).Returns(Key.Pitch.F.Major());
+                yield return new TestCaseData(Key.Pitch.F.Major(), Key.Pitch.G.Major()).Returns(Key.Pitch.G.Major());
+                yield return new TestCaseData(Key.Pitch.F.Major(), Key.Pitch.A.Major()).Returns(Key.Pitch.A.Major());
+                yield return new TestCaseData(Key.Pitch.F.Major(), Key.Pitch.B.Major()).Returns(Key.Pitch.B.Major());
+
+                yield return new TestCaseData(Key.Pitch.G.Major(), Key.Pitch.C.Major()).Returns(Key.Pitch.C.Major());
+                yield return new TestCaseData(Key.Pitch.G.Major(), Key.Pitch.D.Major()).Returns(Key.Pitch.G.Major());
+                yield return new TestCaseData(Key.Pitch.G.Major(), Key.Pitch.E.Major()).Returns(Key.Pitch.G.Major());
+                yield return new TestCaseData(Key.Pitch.G.Major(), Key.Pitch.F.Major()).Returns(Key.Pitch.G.Major());
+                yield return new TestCaseData(Key.Pitch.G.Major(), Key.Pitch.A.Major()).Returns(Key.Pitch.A.Major());
+                yield return new TestCaseData(Key.Pitch.G.Major(), Key.Pitch.B.Major()).Returns(Key.Pitch.B.Major());
+
+                yield return new TestCaseData(Key.Pitch.A.Major(), Key.Pitch.C.Major()).Returns(Key.Pitch.A.Major());
+                yield return new TestCaseData(Key.Pitch.A.Major(), Key.Pitch.D.Major()).Returns(Key.Pitch.A.Major());
+                yield return new TestCaseData(Key.Pitch.A.Major(), Key.Pitch.E.Major()).Returns(Key.Pitch.E.Major());
+                yield return new TestCaseData(Key.Pitch.A.Major(), Key.Pitch.F.Major()).Returns(Key.Pitch.F.Major());
+                yield return new TestCaseData(Key.Pitch.A.Major(), Key.Pitch.G.Major()).Returns(Key.Pitch.G.Major());
+                yield return new TestCaseData(Key.Pitch.A.Major(), Key.Pitch.B.Major()).Returns(Key.Pitch.A.Major());
+
+                yield return new TestCaseData(Key.Pitch.B.Major(), Key.Pitch.C.Major()).Returns(Key.Pitch.C.Major());
+                yield return new TestCaseData(Key.Pitch.B.Major(), Key.Pitch.E.Major()).Returns(Key.Pitch.E.Major());
+                yield return new TestCaseData(Key.Pitch.B.Major(), Key.Pitch.F.Major()).Returns(Key.Pitch.F.Major());
+                yield return new TestCaseData(Key.Pitch.B.Major(), Key.Pitch.G.Major()).Returns(Key.Pitch.G.Major());
+                yield return new TestCaseData(Key.Pitch.B.Major(), Key.Pitch.A.Major()).Returns(Key.Pitch.A.Major());
+                yield return new TestCaseData(Key.Pitch.B.Major(), Key.Pitch.B.Major()).Returns(Key.Pitch.B.Major());
+            }
+        }
     }
 }
