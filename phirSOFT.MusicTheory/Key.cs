@@ -6,17 +6,15 @@ using phirSOFT.TopologicalComparison;
 
 namespace phirSOFT.MusicTheory
 {
-    public struct Key : IComparable<Key>, ITopologicalComparable<Key>
+    public struct Key : ITopologicalComparable<Key>
     {
         private readonly sbyte _transposition;
         private readonly sbyte _scale;
 
         // Calculate the number of sharps for a given transposition:
         // for(int i = 0; i < 12; ++i) => (i * 7) % 12
-        private readonly static sbyte[] SignTable = { 0, 7, 2, 9, 4, 11, 6, 1, 8, 3, 10, 5 };
-
-
-
+        private static readonly sbyte[] SignTable = { 0, 7, 2, 9, 4, 11, 6, 1, 8, 3, 10, 5 };
+        
         private Key(int transposition, sbyte scale)
         {
             _scale = scale;
@@ -108,11 +106,31 @@ namespace phirSOFT.MusicTheory
         /// </summary>
         public sbyte Signs => SignTable[_transposition];
 
-        public string BaseNote => KeyTable.GetTableForCulture(CultureInfo.CurrentCulture)[_transposition];
+        public string BaseNote => KeyTable.GetTableForCulture(CultureInfo.CurrentCulture)[this][_transposition];
    
         public bool CanCompareTo(Key other)
         {
             return _scale == other._scale;
+        }
+
+        public override bool Equals(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override int GetHashCode()
+        {
+            return (_transposition << 16) ^ _scale;
+        }
+
+        public static bool operator ==(Key left, Key right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(Key left, Key right)
+        {
+            return !(left == right);
         }
     }
 }

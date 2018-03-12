@@ -61,10 +61,7 @@ namespace phirSOFT.MusicTheory
 
         private string FormatMajorMinorPerfect(Interval interval, bool shortFormat, IFormatProvider formatProvider)
         {
-            switch (interval.Semitones)
-            {
-                    
-            }
+            throw new NotImplementedException();
         }
 
         private string FormatAugmendtedDiminished(Interval interval, bool shortFormat, IFormatProvider formatProvider)
@@ -124,6 +121,11 @@ namespace phirSOFT.MusicTheory
             MajorMinorPerfectShort,
             AugmentedDiminished,
             AugmentedDiminishedShort,
+        }
+
+        public object GetFormat(Type formatType)
+        {
+            return formatType == typeof(Interval) ? this : null;
         }
     }
 }

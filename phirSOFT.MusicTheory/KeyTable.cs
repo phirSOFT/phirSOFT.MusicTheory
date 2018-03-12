@@ -81,6 +81,11 @@ namespace phirSOFT.MusicTheory
             return targetProperty == KeyTable.KeyProperty && _key != null;
         }
 
+        public static implicit operator HarmonyContext(Key key)
+        {
+            return new HarmonyContext(key);
+        }
+
         private struct HarmonyDispatcher : IIndexer<int, string>
         {
             private readonly bool _flat;
