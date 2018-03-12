@@ -39,7 +39,7 @@ namespace phirSOFT.MusicTheory
         // Calculate the number of sharps for a given transposition:
         // for(int i = 0; i < 12; ++i) => (i * 7) % 12
         private static readonly sbyte[] SignTable = { 0, 7, 2, 9, 4, 11, 6, 1, 8, 3, 10, 5 };
-        
+
         private Key(int transposition, sbyte scale)
         {
             _scale = scale;
@@ -48,12 +48,12 @@ namespace phirSOFT.MusicTheory
 
         public static Key FromPitch(Pitch pitch, Scale scale)
         {
-            return new Key((int) pitch - (int) scale, (sbyte) scale);
+            return new Key((int)pitch - (int)scale, (sbyte)scale);
         }
 
         public static Key ChangeScale(Key pitch, Scale scale)
         {
-            return new Key(pitch._transposition + pitch._scale - (int) scale, (sbyte) scale);
+            return new Key(pitch._transposition + pitch._scale - (int)scale, (sbyte)scale);
         }
 
         private static int Mod(int left, int right)
@@ -100,13 +100,9 @@ namespace phirSOFT.MusicTheory
         public int CompareTo(Key other)
         {
             var difference = _transposition - other._transposition;
-            difference = Mod((sbyte)difference, 12);
-
-            if (difference == 0)
-                return 0;
-            if (difference <= 6)
-                return -1;
-            return 1;
+            if (Math.Abs(difference) <= 6)
+                return difference;
+            return -difference;
         }
 
         public int CompareTo(object obj)
@@ -142,7 +138,7 @@ namespace phirSOFT.MusicTheory
         public sbyte Signs => SignTable[_transposition];
 
         public string BaseNote => KeyTable.GetTableForCulture(CultureInfo.CurrentCulture)[this][_transposition + _scale];
-   
+
         public bool CanCompareTo(Key other)
         {
             return _scale == other._scale;
@@ -175,7 +171,7 @@ namespace phirSOFT.MusicTheory
 
         public override string ToString()
         {
-            return $"{KeyTable.GetTableForCulture(CultureInfo.InvariantCulture)[_transposition + _scale]} ({(Scale) _scale})";
+            return $"{KeyTable.GetTableForCulture(CultureInfo.InvariantCulture)[_transposition + _scale]} ({(Scale)_scale})";
         }
     }
 }
