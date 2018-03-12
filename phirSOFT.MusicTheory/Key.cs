@@ -141,7 +141,7 @@ namespace phirSOFT.MusicTheory
         /// </summary>
         public sbyte Signs => SignTable[_transposition];
 
-        public string BaseNote => KeyTable.GetTableForCulture(CultureInfo.CurrentCulture)[this][_transposition];
+        public string BaseNote => KeyTable.GetTableForCulture(CultureInfo.CurrentCulture)[this][_transposition + _scale];
    
         public bool CanCompareTo(Key other)
         {
@@ -171,6 +171,11 @@ namespace phirSOFT.MusicTheory
         public bool Equals(Key other)
         {
             return _transposition == other._transposition && _scale == other._scale;
+        }
+
+        public override string ToString()
+        {
+            return $"{KeyTable.GetTableForCulture(CultureInfo.InvariantCulture)[_transposition + _scale]} ({(Scale) _scale})";
         }
     }
 }
