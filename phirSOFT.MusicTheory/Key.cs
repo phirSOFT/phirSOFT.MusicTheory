@@ -150,7 +150,7 @@ namespace phirSOFT.MusicTheory
 
         public override bool Equals(object obj)
         {
-            throw new NotImplementedException();
+            return obj is Key other && Equals(other);
         }
 
         public override int GetHashCode()
