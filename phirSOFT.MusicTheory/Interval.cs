@@ -1,36 +1,77 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
+using System.Runtime.Serialization;
 
 namespace phirSOFT.MusicTheory
 {
 
-    public struct Interval
+    public struct Interval : IFormattable, IEquatable<Interval>
     {
-        private readonly int _semitones;
-
-        private Interval(int semitones)
+        public override bool Equals(object obj)
         {
-            _semitones = semitones;
+            return obj is Interval interval && Equals(interval);
         }
 
-        public Interval FromSemitones(int semitones)
+        private static readonly IntervalFormatter Formatter = new IntervalFormatter();
+
+        private Interval(sbyte semitones)
+        {
+            Semitones = semitones;
+        }
+
+        public Interval FromSemitones(sbyte semitones)
         {
             return new Interval(semitones);
         }
 
         public static Interval operator +(Interval left, Interval right)
         {
-            return new Interval(left._semitones + right._semitones);
+            return new Interval((sbyte) (left.Semitones + right.Semitones));
         }
 
         public static Interval operator -(Interval left, Interval right)
         {
-            return new Interval(left._semitones - right._semitones);
+            return new Interval((sbyte) (left.Semitones - right.Semitones));
         }
 
         public static Interval operator ++(Interval other)
         {
-            return new Interval(other._semitones + 1);
+            return new Interval((sbyte) (other.Semitones + 1));
+        }
+
+        public string ToString(string format, IFormatProvider formatProvider)
+        {
+            return Formatter.Format(format, this, formatProvider);
+        }
+
+        public sbyte Semitones { get; }
+
+        public override string ToString()
+        {
+            return ToString("c", CultureInfo.InvariantCulture);
+        }
+
+     
+
+        public override int GetHashCode()
+        {
+            return Semitones.GetHashCode();
+        }
+
+        public static bool operator ==(Interval left, Interval right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(Interval left, Interval right)
+        {
+            return !(left == right);
+        }
+
+        public bool Equals(Interval other)
+        {
+            return Semitones == other.Semitones;
         }
     }
 }
