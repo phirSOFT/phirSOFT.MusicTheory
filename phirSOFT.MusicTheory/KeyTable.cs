@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using phirSOFT.ContextProperties;
 
 namespace phirSOFT.MusicTheory
@@ -13,7 +11,9 @@ namespace phirSOFT.MusicTheory
     public class KeyTable : ReadOnlyCollection<string>, IIndexer<int, string>
     {
         private static readonly ConcurrentDictionary<CultureInfo, KeyTable> Cache = new ConcurrentDictionary<CultureInfo, KeyTable>();
-        public static readonly ContextProperty<IIndexer<int, string>> KeyProperty = new ContextProperty<IIndexer<int, string>>(HarmonyContext.Invariant);
+
+        public static readonly ContextProperty<IIndexer<int, string>> KeyProperty =
+            new ContextProperty<IIndexer<int, string>>(new IndependentContextPool<IIndexer<int, string>>());
 
         protected KeyTable(IList<string> dictionary) : base(dictionary)
         {
@@ -35,22 +35,7 @@ namespace phirSOFT.MusicTheory
         public IIndexer<int, string> this[HarmonyContext context] => KeyProperty[this, context];
     }
 
-    /// <summary>
-    /// Redirects an index operation
-    /// </summary>
-    /// <typeparam name="TKey">The key of the index</typeparam>
-    /// <typeparam name="TValue">The value of the index</typeparam>
-    public interface IIndexer<in TKey, out TValue>
-    {
-        /// <summary>
-        /// Gets the value associated with a given key.
-        /// </summary>
-        /// <param name="key">The key of the value to retrive.</param>
-        /// <returns>The value associated with the key.</returns>
-        TValue this[TKey key] { get; }
-    }
-
-    public class HarmonyContext : IContextProvider<IIndexer<int, string>, IIndexer<int, string>>
+    public class HarmonyContext : IContextProvider<IContextProperty<IIndexer<int, string>>, IIndexer<int, string>>
     {
         private readonly Key? _key;
 
@@ -66,7 +51,7 @@ namespace phirSOFT.MusicTheory
             _key =  key;
         }
 
-        public IIndexer<int, string> GetValue(object targetObject, ContextProperty<IIndexer<int, string>> targetProperty)
+        public IIndexer<int, string> GetValue(object targetObject, IContextProperty<IIndexer<int, string>> targetProperty)
         {
             if (targetProperty != KeyTable.KeyProperty)
                 throw new ArgumentException("Property does not match.", nameof(targetProperty));
@@ -76,7 +61,7 @@ namespace phirSOFT.MusicTheory
             return (KeyTable) targetObject;
         }
 
-        public bool OverridesValue(object targetObject, ContextProperty<IIndexer<int, string>> targetProperty)
+        public bool OverridesValue(object targetObject, IContextProperty<IIndexer<int, string>> targetProperty)
         {
             return targetProperty == KeyTable.KeyProperty && _key != null;
         }
@@ -94,7 +79,7 @@ namespace phirSOFT.MusicTheory
             public HarmonyDispatcher(KeyTable keyTable, bool flat)
             {
                 _keyTable = keyTable;
-                this._flat = flat;
+                _flat = flat;
             }
 
 
@@ -108,9 +93,10 @@ namespace phirSOFT.MusicTheory
                     if (seperator == -1)
                         return k;
 
-                    return _flat ? k.Substring(0, seperator) : k.Substring(seperator);
+                    return _flat ? k.Substring(seperator +1) : k.Substring(0, seperator) ;
                 }
             }
         }
+
     }
 }

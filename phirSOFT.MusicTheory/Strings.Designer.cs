@@ -133,7 +133,7 @@ namespace phirSOFT.MusicTheory {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to C;C♯/Db;D;E;F;F♯/Gb;G;G♯/Ab;A;A♯/Bb;B♮.
+        ///   Looks up a localized string similar to C;C♯/D♭;D;D#/E♭;E;F;F♯/G♭;G;G♯/A♭;A;A♯/B♭;B♮.
         /// </summary>
         internal static string Keymap {
             get {
