@@ -130,6 +130,7 @@ namespace phirSOFT.MusicTheory.Test
             var o = Activator.CreateInstance(t);
             var key = Key.FromPitch((Pitch) pitch, (Scale) scale);
             Assert.Throws<ArgumentException>(() => Comparer.Default.Compare(o, key));
+            Assert.Throws<ArgumentException>(() => key.CompareTo(o));
         }
 
         [Test]
