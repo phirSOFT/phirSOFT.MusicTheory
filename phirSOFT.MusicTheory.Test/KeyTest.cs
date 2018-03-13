@@ -185,6 +185,27 @@ namespace phirSOFT.MusicTheory.Test
             Assert.AreEqual(expected, original);
         }
 
+        [Test]
+        public void TestEqualityOperators([Range(0, 11)] int pitchA, [Range(0, 11)] int pitchB, [Range(0, 7)] int scale)
+        {
+            var keyA = Key.FromPitch((Pitch) pitchA, (Scale) scale);
+            var keyB = Key.FromPitch((Pitch) pitchB, (Scale) scale);
+
+            if (pitchA == pitchB)
+            {
+                Assert.True(keyA == keyB);
+                Assert.False(keyA != keyB);
+                Assert.True(keyA.Equals(keyB));
+                Assert.True(keyA.Equals((object) keyB));
+            }
+            else
+            {
+                Assert.False(keyA == keyB);
+                Assert.True(keyA != keyB);
+                Assert.False(keyA.Equals(keyB));
+                Assert.False(keyA.Equals((object) keyB));
+            }
+        }
 
         public static IEnumerable ComparisonTestCases
         {
