@@ -133,6 +133,16 @@ namespace phirSOFT.MusicTheory.Test
         }
 
         [Test]
+        public void ChangeScalePitchSame([Range(0, 11)] int pitch, [Range(0, 7)] int from, [Range(0, 7)] int to)
+        {
+            var original = Key.FromPitch((Pitch) pitch, (Scale) from);
+            var modified = Key.ChangeScale(original, (Scale) to);
+
+            Assert.AreEqual(original.Pitch, modified.Pitch);
+
+        }
+
+        [Test]
         public void TestOperatorPlus([Range(0, 11)] int originalPitch, [Range(-11, 11)] int shift, [Range(0,7)] int scale)
         {
             var original = Key.FromPitch((Pitch) originalPitch, (Scale) scale);
