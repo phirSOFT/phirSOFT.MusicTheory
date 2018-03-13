@@ -79,6 +79,41 @@ namespace phirSOFT.MusicTheory.Test
             return Comparer<Key>.Default.Compare(left, right) < 0 ? right : left;
         }
 
+        [Test]
+        [TestCaseSource(typeof(KeyTest), nameof(ComparisonTestCases))]
+        public Key TestComparisonNonGeneric(Key left, Key right)
+        {
+            return left.CompareTo((object) right) < 0 ? right : left;
+        }
+
+        [Test]
+        [TestCaseSource(typeof(KeyTest), nameof(ComparisonTestCases))]
+        public Key TestComparisonOperators_Less(Key left, Key right)
+        {
+            return left < right ? right : left;
+        }
+
+        [Test]
+        [TestCaseSource(typeof(KeyTest), nameof(ComparisonTestCases))]
+        public Key TestComparisonOperators_LessEq(Key left, Key right)
+        {
+            return left <= right ? right : left;
+        }
+
+        [Test]
+        [TestCaseSource(typeof(KeyTest), nameof(ComparisonTestCases))]
+        public Key TestComparisonOperators_Greater(Key left, Key right)
+        {
+            return left > right ? left : right;
+        }
+
+        [Test]
+        [TestCaseSource(typeof(KeyTest), nameof(ComparisonTestCases))]
+        public Key TestComparisonOperators_GreaterEq(Key left, Key right)
+        {
+            return left >= right ? left : right;
+        }
+
         [Test]       
         public void TestComparisonNull([Range(0, 11)]int pitch, [Range(0, 7)] int scale)
         {
