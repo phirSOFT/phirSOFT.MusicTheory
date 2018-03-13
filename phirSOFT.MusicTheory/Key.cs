@@ -6,14 +6,10 @@ using phirSOFT.TopologicalComparison;
 
 namespace phirSOFT.MusicTheory
 {
-    public struct Key : ITopologicalComparable<Key>, IEquatable<Key>
     {
         private readonly sbyte _transposition;
         private readonly sbyte _scale;
 
-        // Calculate the number of sharps for a given transposition:
-        // for(int i = 0; i < 12; ++i) => (i * 7) % 12
-        private static readonly sbyte[] SignTable = { 0, 7, 2, 9, 4, 11, 6, 1, 8, 3, 10, 5 };
      
         private Key(int transposition, sbyte scale)
         {
@@ -110,7 +106,7 @@ namespace phirSOFT.MusicTheory
         /// <summary>
         /// Sharp signs
         /// </summary>
-        public sbyte Signs => SignTable[_transposition];
+        public int Signs => (_transposition * 7) %12;
 
         public string BaseNote => KeyTable.GetTableForCulture(CultureInfo.CurrentCulture)[this][_transposition + _scale];
 
