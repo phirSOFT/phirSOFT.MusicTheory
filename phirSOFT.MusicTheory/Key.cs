@@ -11,35 +11,10 @@ namespace phirSOFT.MusicTheory
         private readonly sbyte _transposition;
         private readonly sbyte _scale;
 
-        public enum Pitch
-        {
-            CFlat = B,
-            C = 0,
-            CSharp = 1,
-            DFlat = CSharp,
-            D = 2,
-            DSharp = 3,
-            EFlat = DSharp,
-            E = 4,
-            ESharp = F,
-            FFlat = E,
-            F = 5,
-            FSharp = 6,
-            GFlat = FSharp,
-            G = 7,
-            GSharp = 8,
-            AFlat = GSharp,
-            A = 9,
-            ASharp = 10,
-            BFlat = ASharp,
-            B = 11,
-            BSharp = C,
-        }
-
         // Calculate the number of sharps for a given transposition:
         // for(int i = 0; i < 12; ++i) => (i * 7) % 12
         private static readonly sbyte[] SignTable = { 0, 7, 2, 9, 4, 11, 6, 1, 8, 3, 10, 5 };
-
+     
         private Key(int transposition, sbyte scale)
         {
             _scale = scale;
