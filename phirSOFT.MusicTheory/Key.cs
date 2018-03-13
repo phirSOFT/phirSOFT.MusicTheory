@@ -6,6 +6,7 @@ using phirSOFT.TopologicalComparison;
 
 namespace phirSOFT.MusicTheory
 {
+    public struct Key : ITopologicalComparable<Key>, IEquatable<Key>
     {
         private readonly sbyte _transposition;
         private readonly sbyte _scale;
