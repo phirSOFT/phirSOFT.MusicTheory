@@ -132,6 +132,49 @@ namespace phirSOFT.MusicTheory.Test
             Assert.Throws<ArgumentException>(() => Comparer.Default.Compare(o, key));
         }
 
+        [Test]
+        public void TestOperatorPlus([Range(0, 11)] int originalPitch, [Range(-11, 11)] int shift, [Range(0,7)] int scale)
+        {
+            var original = Key.FromPitch((Pitch) originalPitch, (Scale) scale);
+            var interval = Interval.FromSemitones((sbyte) shift);
+            var expectedPitch = (shift + originalPitch + 12) % 12;
+            var expected = Key.FromPitch((Pitch) expectedPitch, (Scale) scale);
+            var actual = original + interval;
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void TestOperatorMinus([Range(0, 11)] int originalPitch, [Range(-11, 11)] int shift, [Range(0,7)] int scale)
+        {
+            var original = Key.FromPitch((Pitch) originalPitch, (Scale) scale);
+            var interval = Interval.FromSemitones((sbyte) shift);
+            var expectedPitch = (originalPitch - shift + 12) % 12;
+            var expected = Key.FromPitch((Pitch) expectedPitch, (Scale) scale);
+            var actual = original - interval;
+            Assert.AreEqual(expected, actual);
+        }
+
+        [Test]
+        public void TestOperatorIncrement([Range(0, 11)] int pitch, [Range(0,7)] int scale)
+        {
+            var original = Key.FromPitch((Pitch) pitch, (Scale) scale);
+            var expectedPitch = (pitch + 13) % 12;
+            var expected = Key.FromPitch((Pitch) expectedPitch, (Scale) scale);
+            original++;
+            Assert.AreEqual(expected, original);
+        }
+
+        [Test]
+        public void TestOperatorDecrement([Range(0, 11)] int pitch, [Range(0,7)] int scale)
+        {
+            var original = Key.FromPitch((Pitch) pitch, (Scale) scale);
+            var expectedPitch = (pitch + 11) % 12;
+            var expected = Key.FromPitch((Pitch) expectedPitch, (Scale) scale);
+            original--;
+            Assert.AreEqual(expected, original);
+        }
+
+
         public static IEnumerable ComparisonTestCases
         {
             get
