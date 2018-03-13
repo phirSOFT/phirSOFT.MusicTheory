@@ -27,6 +27,8 @@ namespace phirSOFT.MusicTheory
             return new Key(pitch._transposition + pitch._scale - (int)scale, (sbyte)scale);
         }
 
+        public Pitch Pitch => (Pitch) ((_transposition + _scale) % 12);
+
         private static int Mod(int left, int right)
         {
             // To perform a mod operation on signed values we have to perform a little trick.
