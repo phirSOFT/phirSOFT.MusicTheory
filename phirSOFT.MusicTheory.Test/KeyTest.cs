@@ -121,6 +121,7 @@ namespace phirSOFT.MusicTheory.Test
             var cmp = Comparer.Default;
             Assert.Negative(cmp.Compare(null, key));
             Assert.Positive(cmp.Compare(key, null));
+            Assert.Positive(key.CompareTo(null));
         }
 
         [Test]
